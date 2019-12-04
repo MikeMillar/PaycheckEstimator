@@ -202,7 +202,7 @@ public class Controller {
     public void updateDepartmentCSI() {
         // parse elr value and compare values
         // update label value accordingly
-        double score = toNumber(pCSIField.getText());
+        double score = toNumber(dCSIField.getText());
         String pay;
         if (score >= 92.0) {
             pay = "250";
