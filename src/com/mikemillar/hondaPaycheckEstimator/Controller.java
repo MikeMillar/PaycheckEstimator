@@ -4,6 +4,8 @@ import com.mikemillar.hondaPaycheckEstimator.payModel.Sales;
 import com.mikemillar.hondaPaycheckEstimator.payModel.SalesData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -14,6 +16,7 @@ import javafx.stage.FileChooser;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 
 public class Controller {
     
@@ -40,6 +43,38 @@ public class Controller {
     
     public void initialize() {
     
+    }
+    
+    @FXML
+    public void newEstimateSheet() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Open new?");
+        alert.setHeaderText("Opening new estimate will cause any un-saved data to be lost.");
+        alert.setContentText("Are you sure?");
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.isPresent() && (result.get() == ButtonType.OK)) {
+            clearInputs();
+        }
+    }
+    
+    public void clearInputs() {
+        monthField.clear();
+        yearField.clear();
+        cpLaborField.clear();
+        wLaborField.clear();
+        iLaborField.clear();
+        totalLaborLabel.setText("$0.00");
+        cpPartsField.clear();
+        wPartsField.clear();
+        iPartsField.clear();
+        totalPartsLabel.setText("$0.00");
+        elrField.clear();
+        laborPercentLabel.setText("6%");
+        pCSIField.clear();
+        cCSIPayField.setText("$0.00");
+        dCSIField.clear();
+        dCSIPayField.setText("$0.00");
+        totalGrossLabel.setText("$0.00");
     }
     
     public void loadSales() throws IOException {
