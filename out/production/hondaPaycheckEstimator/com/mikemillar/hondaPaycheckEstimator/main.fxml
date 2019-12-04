@@ -4,16 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikemillar.hondaPaycheckEstimator.Controller">
+<BorderPane fx:id="mainBorderPane" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.mikemillar.hondaPaycheckEstimator.Controller">
     <top>
         <MenuBar>
             <Menu text="File">
                 <items>
                     <MenuItem text="New..." />
                     <SeparatorMenuItem />
-                    <MenuItem text="Open..." />
+                    <MenuItem onAction="#loadSales" text="Open..." />
                     <SeparatorMenuItem />
-                    <MenuItem text="Save" />
+                    <MenuItem onAction="#saveSales" text="Save..." />
                     <SeparatorMenuItem />
                     <MenuItem onAction="#handleExit" text="Exit" />
                 </items>
@@ -29,34 +29,38 @@
     </top>
     <center>
         <GridPane alignment="CENTER" hgap="20" vgap="20">
-            <Label text="Customer Pay Labor:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-            <TextField fx:id="cpLaborField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-            <Label text="Warranty Pay Labor:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <TextField fx:id="wLaborField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label text="Internal Pay Labor:" GridPane.columnIndex="2" GridPane.rowIndex="0" />
-            <TextField fx:id="iLaborField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label text="Total Labor:" GridPane.columnIndex="3" GridPane.rowIndex="0" />
-            <Label fx:id="totalLaborLabel" text="0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label text="Customer Pay Parts:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <TextField fx:id="cpPartsField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <Label text="Warranty Pay Parts:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="wPartsField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="Internal Pay Parts:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <TextField fx:id="iPartsField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-            <Label text="Total Parts:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Label fx:id="totalPartsLabel" text="0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-            <Label text="Effective Labor Rate:" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-            <TextField fx:id="elrField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="0" GridPane.rowIndex="5" />
-            <Label text="Personal CSI Score:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="pCSIField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Label text="Department CSI Score:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-            <TextField fx:id="dCSIField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Label text="Labor Percentage:" GridPane.columnIndex="0" GridPane.rowIndex="6" />
-            <Label fx:id="laborPercentLabel" text="6%" GridPane.columnIndex="0" GridPane.rowIndex="7" />
-            <Label text="Personal CSI Pay:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <Label fx:id="cCSIPayField" text="0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <Label text="Department CSI Pay:" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-            <Label fx:id="dCSIPayField" text="0" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label text="Customer Pay Labor:" GridPane.rowIndex="2" />
+            <TextField fx:id="cpLaborField" onKeyPressed="#handleEnterKey" GridPane.rowIndex="3" />
+            <Label text="Warranty Pay Labor:" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextField fx:id="wLaborField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <Label text="Internal Pay Labor:" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <TextField fx:id="iLaborField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+            <Label text="Total Labor:" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+            <Label fx:id="totalLaborLabel" text="0" GridPane.columnIndex="3" GridPane.rowIndex="3" />
+            <Label text="Customer Pay Parts:" GridPane.rowIndex="4" />
+            <TextField fx:id="cpPartsField" onKeyPressed="#handleEnterKey" GridPane.rowIndex="5" />
+            <Label text="Warranty Pay Parts:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextField fx:id="wPartsField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <Label text="Internal Pay Parts:" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+            <TextField fx:id="iPartsField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Label text="Total Parts:" GridPane.columnIndex="3" GridPane.rowIndex="4" />
+            <Label fx:id="totalPartsLabel" text="0" GridPane.columnIndex="3" GridPane.rowIndex="5" />
+            <Label text="Effective Labor Rate:" GridPane.rowIndex="6" />
+            <TextField fx:id="elrField" onKeyPressed="#handleEnterKey" GridPane.rowIndex="7" />
+            <Label text="Personal CSI Score:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextField fx:id="pCSIField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <Label text="Department CSI Score:" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+            <TextField fx:id="dCSIField" onKeyPressed="#handleEnterKey" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+            <Label text="Labor Percentage:" GridPane.rowIndex="8" />
+            <Label fx:id="laborPercentLabel" text="6%" GridPane.rowIndex="9" />
+            <Label text="Personal CSI Pay:" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <Label fx:id="cCSIPayField" text="0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <Label text="Department CSI Pay:" GridPane.columnIndex="2" GridPane.rowIndex="8" />
+            <Label fx:id="dCSIPayField" text="0" GridPane.columnIndex="2" GridPane.rowIndex="9" />
+         <Label text="Month:" />
+         <Label text="Year:" GridPane.columnIndex="2" />
+         <TextField fx:id="monthField" GridPane.columnIndex="1" />
+         <TextField fx:id="yearField" GridPane.columnIndex="3" />
          <columnConstraints>
             <ColumnConstraints />
             <ColumnConstraints />
@@ -64,6 +68,8 @@
             <ColumnConstraints />
          </columnConstraints>
          <rowConstraints>
+            <RowConstraints />
+            <RowConstraints />
             <RowConstraints />
             <RowConstraints />
             <RowConstraints />

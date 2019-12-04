@@ -2,9 +2,11 @@ package com.mikemillar.hondaPaycheckEstimator.payModel;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class SalesData {
     
@@ -21,28 +23,29 @@ public class SalesData {
         return filename;
     }
     
-    public void setFilename(String filen) {
-        filename = filen;
+    public void setFilename(String file) {
+        filename = file;
     }
     
-    public Sales loadSales(Path path) throws IOException {
-        BufferedReader br = Files.newBufferedReader(path);
+    public Sales loadSales(File file) throws IOException {
+        String path = file.getPath();
+        BufferedReader br = Files.newBufferedReader(Paths.get(path));
         String input;
         
         try {
             while ((input = br.readLine()) != null) {
-                String[] salesPiece = input.split("\n");
+                String[] salesPiece = input.split("\t");
                 String month = salesPiece[0];
                 int year = Integer.parseInt(salesPiece[1]);
                 double custLabor = Double.parseDouble(salesPiece[2]);
                 double warrLabor = Double.parseDouble(salesPiece[3]);
                 double intLabor = Double.parseDouble(salesPiece[4]);
-                double custParts = Double.parseDouble(salesPiece[6]);
-                double warrParts = Double.parseDouble(salesPiece[7]);
-                double intParts = Double.parseDouble(salesPiece[8]);
-                double elr = Double.parseDouble(salesPiece[10]);
-                double personCSI = Double.parseDouble(salesPiece[12]);
-                double departCSI = Double.parseDouble(salesPiece[13]);
+                double custParts = Double.parseDouble(salesPiece[5]);
+                double warrParts = Double.parseDouble(salesPiece[6]);
+                double intParts = Double.parseDouble(salesPiece[7]);
+                double elr = Double.parseDouble(salesPiece[8]);
+                double personCSI = Double.parseDouble(salesPiece[9]);
+                double departCSI = Double.parseDouble(salesPiece[10]);
                 
                 Sales sales = new Sales(month, year, custLabor, warrLabor,
                         intLabor, custParts, warrParts, intParts, elr, personCSI, departCSI);
@@ -56,11 +59,13 @@ public class SalesData {
         return null;
     }
     
-    public void saveSales(Sales sales, Path path) throws IOException {
-        BufferedWriter bw = Files.newBufferedWriter(path);
+    public void saveSales(Sales sales, File file) throws IOException {
+        String path = file.getPath();
+        BufferedWriter bw = Files.newBufferedWriter(Paths.get(path));
         try {
-            bw.write(String.format("%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s\n%s",
+            bw.write(String.format("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",
                     sales.getMonth(),
+                    sales.getYear(),
                     sales.getCustomerLabor(),
                     sales.getWarrantyLabor(),
                     sales.getInternalLabor(),

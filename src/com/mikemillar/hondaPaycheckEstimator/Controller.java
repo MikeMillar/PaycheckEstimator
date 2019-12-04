@@ -1,15 +1,26 @@
 package com.mikemillar.hondaPaycheckEstimator;
 
+import com.mikemillar.hondaPaycheckEstimator.payModel.Sales;
+import com.mikemillar.hondaPaycheckEstimator.payModel.SalesData;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.FileChooser;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Path;
 
 public class Controller {
     
+    private Sales sales;
+    @FXML private BorderPane mainBorderPane;
+    @FXML private TextField monthField;
+    @FXML private TextField yearField;
     @FXML private TextField cpLaborField;
     @FXML private TextField wLaborField;
     @FXML private TextField iLaborField;
@@ -29,6 +40,61 @@ public class Controller {
     
     public void initialize() {
     
+    }
+    
+    public void loadSales() throws IOException {
+        // implement method to load pre-existing sales
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Select File to Load...");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text", "*.txt"));
+        File file = fc.showOpenDialog(mainBorderPane.getScene().getWindow());
+        if (file != null) {
+            sales = SalesData.getInstance().loadSales(file);
+            populateFields();
+        } else {
+            System.out.println("File chooser cancelled.");
+        }
+    }
+    
+    public void saveSales() throws IOException {
+        // implement method to save current sales
+        sales = new Sales(monthField.getText(), Integer.parseInt(yearField.getText()),
+                Double.parseDouble(cpLaborField.getText()), Double.parseDouble(wLaborField.getText()),
+                Double.parseDouble(iLaborField.getText()), Double.parseDouble(cpPartsField.getText()),
+                Double.parseDouble(wPartsField.getText()), Double.parseDouble(iPartsField.getText()),
+                Double.parseDouble(elrField.getText()), Double.parseDouble(pCSIField.getText()),
+                Double.parseDouble(dCSIField.getText()));
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Save File...");
+        fc.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Text", "*.txt"));
+        File file = fc.showSaveDialog(mainBorderPane.getScene().getWindow());
+        if (file != null) {
+            SalesData.getInstance().saveSales(sales, file);
+        } else {
+            System.out.println("File chooser cancelled.");
+        }
+    }
+    
+    @FXML
+    public void populateFields() {
+        // Sets all UI fields = to loaded values;
+        monthField.setText(sales.getMonth());
+        yearField.setText(""+sales.getYear());
+        cpLaborField.setText(""+sales.getCustomerLabor());
+        wLaborField.setText(""+sales.getWarrantyLabor());
+        iLaborField.setText(""+sales.getInternalLabor());
+        updateLaborTotal();
+        cpPartsField.setText(""+sales.getCustomerParts());
+        wPartsField.setText(""+sales.getWarrantyParts());
+        iPartsField.setText(""+sales.getInternalParts());
+        updatePartsTotal();
+        elrField.setText(""+sales.getElrValue());
+        updatePercentageLabel();
+        pCSIField.setText(""+sales.getPersonalCSIValue());
+        updatePersonalCSI();
+        dCSIField.setText(""+sales.getDepartmentCSIValue());
+        updateDepartmentCSI();
+        updateGross();
     }
     
     @FXML
