@@ -13,7 +13,7 @@
                     <SeparatorMenuItem />
                     <MenuItem text="Open..." />
                     <SeparatorMenuItem />
-                    <MenuItem text="Save" />
+                    <MenuItem text="Save..." />
                     <SeparatorMenuItem />
                     <MenuItem onAction="#handleExit" text="Exit" />
                 </items>
