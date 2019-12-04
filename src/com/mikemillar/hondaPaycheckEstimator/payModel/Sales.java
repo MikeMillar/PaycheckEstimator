@@ -21,8 +21,8 @@ public class Sales {
     
     public Sales(String month, int year, double customerLabor, double warrantyLabor,
                  double internalLabor, double customerParts, double warrantyParts,
-                 double internalParts, double elrValue, double percentage,
-                 double personalCSIValue, double departmentCSIValue) {
+                 double internalParts, double elrValue, double personalCSIValue,
+                 double departmentCSIValue) {
         this.month = month;
         this.year = year;
         this.customerLabor = customerLabor;
@@ -34,7 +34,6 @@ public class Sales {
         this.internalParts = internalParts;
         this.totalParts = getTotalParts();
         this.elrValue = elrValue;
-        this.percentage = percentage;
         this.personalCSIValue = personalCSIValue;
         this.departmentCSIValue = departmentCSIValue;
         this.totalGross = calcTotalGross();
