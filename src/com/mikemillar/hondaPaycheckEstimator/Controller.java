@@ -68,10 +68,10 @@ public class Controller {
         if (ELR >= 95.0) {
             laborPercentage = 0.09;
             percentage = "9%";
-        } else if (ELR >= 93.0) {
+        } else if (ELR >= 90.0) {
             laborPercentage = 0.085;
             percentage = "8.5%";
-        } else if (ELR >= 90.0) {
+        } else if (ELR >= 85.0) {
             laborPercentage = 0.08;
             percentage = "8%";
         } else {
